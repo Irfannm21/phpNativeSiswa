@@ -6,8 +6,8 @@
     shrink-to-fit=no">
     <title>OOP Stock</title>
     <link rel="icon" href="img/favicon.png" type="image/png">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
 
@@ -15,19 +15,15 @@
   <nav id="main-navbar" class="navbar navbar-expand-md navbar-dark bg-dark py-0">
     <div class="container">
       <span class="navbar-brand">
-        Hello,>
+        Hello
       </span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarNav">
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarNav"> -->
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link p-3" href="tampil_barang.php">
-            Tabel Barang</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link p-3 " href="profile.php">
             My Profile</a>

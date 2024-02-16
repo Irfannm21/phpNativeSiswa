@@ -1,6 +1,8 @@
 <?php
 // jalankan init.php (untuk session_start dan autoloader)
-require '../init.php';
+
+require "../init.php";
+
 
 // cek apakah user sudah login atau belum
 
@@ -28,9 +30,9 @@ include 'layouts/header.php';
         <!-- Form pencarian -->
         <div class="py-4 d-flex justify-content-end align-items-center">
           <h1 class="h2 mr-auto">
-            <a class="text-info" href="tampil_barang.php">Tabel Barang</a>
+            Data Mahasiswa
           </h1>
-          <a href="tambah_barang.php" class="btn btn-primary">Tambah Barang</a>
+          <a href="tambah_barang.php" class="btn btn-primary">Tambah Siswa</a>
           <form class="w-25 ml-4" method="get">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="search"

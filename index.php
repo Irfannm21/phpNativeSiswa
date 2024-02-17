@@ -1,4 +1,43 @@
-<!doctype html>
+<?php
+mysqli_report(MYSQLI_REPORT_STRICT);
+
+try {
+  $mysqli = new mysqli("localhost", "root", "");
+
+  // Cek apakah database ilkoom tersedia
+  $mysqli->select_db("ilkoom");
+  if ($mysqli->error){
+    throw new Exception();
+  }
+
+  // Cek apakah tabel barang tersedia
+  $query = "SELECT 1 FROM barang";
+  $mysqli->query($query);
+  if ($mysqli->error){
+    throw new Exception();
+  }
+
+  // Cek apakah tabel user tersedia
+  $query = "SELECT 1 FROM user";
+  $mysqli->query($query);
+  if ($mysqli->error){
+    throw new Exception();
+  }
+
+  // tutup koneksi ke database
+  if (isset($mysqli)) {
+    $mysqli->close();
+  }
+
+  // jika database ilkoom, tabel barang & user ada, redirect ke halaman login
+  header('Location:login.php');
+}
+catch (Exception $e) {
+  // kode catch ini akan diproses jika salah satu dari database ilkoom,
+  // tabel barang dan tabel user tidak ada di database.
+?>
+
+  <!doctype html>
   <html lang="id">
     <head>
       <meta charset="utf-8">
@@ -31,3 +70,6 @@
     <script src="js/bootstrap.js"></script>
   </body>
   </html>
+<?php
+// kurung kurawal untuk menutup block catch
+}

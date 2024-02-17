@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,
     shrink-to-fit=no">
-    <title>Inventory</title>
+    <title>ILKOOM Inventory</title>
     <link rel="icon" href="img/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
@@ -24,23 +24,23 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 try {
   $mysqli = new mysqli("localhost", "root", "");
 
-  // Buat database "nativeStokManager" (jika belum ada)
-  $query = "CREATE DATABASE IF NOT EXISTS nativeStokManager";
+  // Buat database "ilkoom" (jika belum ada)
+  $query = "CREATE DATABASE IF NOT EXISTS ilkoom";
   $mysqli->query($query);
   if ($mysqli->error){
     throw new Exception($mysqli->error, $mysqli->errno);
   }
   else {
-    echo "<li>Database 'nativeStokManager' berhasil di buat / sudah tersedia</li>";
+    echo "<li>Database 'ilkoom' berhasil di buat / sudah tersedia</li>";
   };
 
-  // Pilih database "nativeStokManager"
-  $mysqli->select_db("nativeStokManager");
+  // Pilih database "ilkoom"
+  $mysqli->select_db("ilkoom");
   if ($mysqli->error){
     throw new Exception($mysqli->error, $mysqli->errno);
   }
   else {
-    echo "<li>Database 'nativeStokManager' berhasil di pilih</li>";
+    echo "<li>Database 'ilkoom' berhasil di pilih</li>";
   };
 
   // Hapus tabel "barang" (jika ada)

@@ -1,10 +1,10 @@
 <?php
 // jalankan init.php (untuk session_start dan autoloader)
-
-require "../init.php";
-
+require '../../init.php';
 
 // cek apakah user sudah login atau belum
+$user = new User();
+$user->cekUserSession();
 
 // buat koneksi ke database
 $DB = DB::getInstance();
@@ -20,7 +20,7 @@ else {
 }
 
 // include head
-include 'layouts/header.php';
+include 'template/header.php';
 ?>
 
   <div class="container">
@@ -30,9 +30,9 @@ include 'layouts/header.php';
         <!-- Form pencarian -->
         <div class="py-4 d-flex justify-content-end align-items-center">
           <h1 class="h2 mr-auto">
-            Data Mahasiswa
+            Data
           </h1>
-          <a href="tambah_barang.php" class="btn btn-primary">Tambah Siswa</a>
+          <a href="create.php" class="btn btn-primary">Tambah Barang</a>
           <form class="w-25 ml-4" method="get">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="search"
@@ -93,5 +93,5 @@ include 'layouts/header.php';
 
 <?php
 // include footer
-include 'layouts/footer.php';
+include 'template/footer.php';
 ?>

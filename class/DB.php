@@ -3,7 +3,7 @@ class DB{
 
   // Property untuk koneksi ke database mysql
   private $_host = '127.0.0.1';
-  private $_dbname = 'nativestokmanager';
+  private $_dbname = 'ilkoom';
   private $_username = 'root';
   private $_password = '';
 

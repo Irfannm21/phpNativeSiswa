@@ -38,13 +38,10 @@ class Barang{
   }
 
   public function insert(){
-    $tanggal = new DateTime(today())->format('d-m-Y:H:i:s');
-    dd($tanggal);
     $newBarang = [
       'nama_barang' => $this->getItem('nama_barang'),
       'jumlah_barang' => $this->getItem('jumlah_barang'),
       'harga_barang' => $this->getItem('harga_barang'),
-      'tanggal_update' => $this->getItem('')
     ];
     return $this->_db->insert('barang',$newBarang);
   }

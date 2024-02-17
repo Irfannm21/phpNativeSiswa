@@ -84,7 +84,7 @@ class User{
 
   public function login(){
     $_SESSION["username"] = $this->getItem('username');
-    header("Location: tampil_barang.php");
+    header("Location: index.php");
   }
 
   public function cekUserSession(){

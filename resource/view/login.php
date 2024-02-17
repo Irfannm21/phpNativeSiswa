@@ -1,6 +1,6 @@
 <?php
 // jalankan init.php (untuk autoloader)
-require 'init.php';
+require '../../init.php';
 
 // buat object user yang akan dipakai untuk proses login
 $user = new User();
@@ -22,8 +22,8 @@ if (!empty($_POST)) {
     shrink-to-fit=no">
     <title>ILKOOM Inventory</title>
     <link rel="icon" href="img/favicon.png" type="image/png">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
     <div class="container pt-5">

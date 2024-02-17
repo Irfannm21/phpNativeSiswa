@@ -1,27 +1,27 @@
 <?php
 // jalankan init.php (untuk session_start dan autoloader)
-require 'init.php';
+require '../../init.php';
 
 // cek apakah user sudah login atau belum
 $user = new User();
 $user->cekUserSession();
 
-// halaman tidak bisa diakses langsung, harus ada query string id_barang
-if(empty(Input::get('id_barang'))) {
+// halaman tidak bisa diakses langsung, harus ada query string kode_barang
+if(empty(Input::get('kode_barang'))) {
   die ('Maaf halaman ini tidak bisa diakses langsung');
 }
 
 // ambil semua data barang yang akan diupdate dari database
 $barang = new Barang();
-$barang->generate(Input::get('id_barang'));
+$barang->generate(Input::get('kode_barang'));
 
 if (!empty($_POST)) {
   // jika terdeteksi form $_POST di submit, jalankan proses validasi
   $pesanError = $barang->validasi($_POST);
   if (empty($pesanError)) {
     // jika tidak ada error, proses update barang
-    $barang->update($barang->getItem('id_barang'));
-    header('Location:tampil_barang.php');
+    $barang->update($barang->getItem('kode_barang'));
+    header('Location:index.php');
   }
 }
 
@@ -34,8 +34,8 @@ include 'template/header.php';
   <div class="container">
     <div class="row">
       <div class="col-6 py-4">
-      <h1 class="h2 mr-auto"><a class="text-info" href="edit_barang.php">
-        Edit Barang</a></h1>
+      <h1 class="h2 mr-auto">
+        Edit Barang</h1>
 
       <?php
         // jika ada error, tampilkan pesan error
@@ -64,9 +64,9 @@ include 'template/header.php';
       <form method="post">
 
         <div class="form-group">
-          <label for="nama_barang">ID Barang</label>
-          <input type="text" class="form-control" name="nama_barang" disabled
-          value="<?php echo $barang->getItem('id_barang'); ?>">
+          <label for="kode_barang">ID Barang</label>
+          <input type="text" class="form-control" name="kode_barang" disabled
+          value="<?php echo $barang->getItem('kode_barang'); ?>">
           <small class="d-block">*ID Barang tidak bisa diubah</small>
         </div>
 
@@ -89,7 +89,7 @@ include 'template/header.php';
         </div>
 
         <input type="submit" class="btn btn-primary" value="Update">
-        <a href="tampil_barang.php" class="btn btn-secondary">Cancel</a>
+        <a href="index.php" class="btn btn-secondary">Cancel</a>
 
       </form>
 

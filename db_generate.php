@@ -18,12 +18,12 @@
         <hr class="w-50">
         <ul>
 
-<?php
+          <?php
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 try {
   $mysqli = new mysqli("localhost", "root", "");
-
+  
   // Buat database "nativeStock" (jika belum ada)
   $query = "CREATE DATABASE IF NOT EXISTS nativeStock";
   $mysqli->query($query);
@@ -33,7 +33,7 @@ try {
   else {
     echo "<li>Database 'nativeStock' berhasil di buat / sudah tersedia</li>";
   };
-
+  
   // Pilih database "nativeStock"
   $mysqli->select_db("nativeStock");
   if ($mysqli->error){
@@ -42,20 +42,27 @@ try {
   else {
     echo "<li>Database 'nativeStock' berhasil di pilih</li>";
   };
-
-  // Hapus tabel "barang" (jika ada)
-  $query = "DROP TABLE IF EXISTS barang";
+  
+  // Hapus tabel "pembelian" (jika ada)
+  $query = "DROP TABLE IF EXISTS pembelian";
   $mysqli->query($query);
-  if ($mysqli->error){
-    throw new Exception($mysqli->error, $mysqli->errno);
-  }
+  // Hapus tabel "penjualan" (jika ada)
+  $query = "DROP TABLE IF EXISTS penjualan";
+  $mysqli->query($query);
+// DROP TABEL BARANG
+    $query = "DROP TABLE IF EXISTS barang";
+    $mysqli->query($query);
+    if ($mysqli->error){
+      throw new Exception($mysqli->error, $mysqli->errno);
+    }
 
   // Buat tabel "barang"
   $query = "CREATE TABLE barang (
            kode_barang VARCHAR(5) PRIMARY KEY,
            nama_barang VARCHAR(50),
            jumlah_barang INT,
-           harga_barang DEC
+           harga_barang DEC,
+           tanggal Timestamp
            )";
   $mysqli->query($query);
   if ($mysqli->error){
@@ -70,12 +77,12 @@ try {
   $timestamp = $sekarang->format("Y-m-d H:i:s");
 
   $query = "INSERT INTO barang
-    (kode_barang, nama_barang, jumlah_barang, harga_barang) VALUES
-      ('EL001','TV Samsung 43NU7090 4K',5,5399000),
-      ('EL002','Kulkas LG GC-A432HLHU',10,7600000),
-      ('EL003','Laptop ASUS ROG GL503GE',7,16200000),
-      ('EL004','Printer Epson L220',14,2099000),
-      ('EL005','Smartphone Xiaomi Pocophone F1',25,4750000)
+    (kode_barang, nama_barang, jumlah_barang, harga_barang,tanggal) VALUES
+      ('EL001','TV Samsung 43NU7090 4K',5,5399000,'$timestamp'),
+      ('EL002','Kulkas LG GC-A432HLHU',10,7600000,'$timestamp'),
+      ('EL003','Laptop ASUS ROG GL503GE',7,16200000,'$timestamp'),
+      ('EL004','Printer Epson L220',14,2099000,'$timestamp'),
+      ('EL005','Smartphone Xiaomi Pocophone F1',25,4750000,'$timestamp')
     ;";
   $mysqli->query($query);
   if ($mysqli->error){
@@ -87,11 +94,6 @@ try {
   };
 
   // Hapus tabel "stock" (jika ada)
-  $query = "DROP TABLE IF EXISTS pembelian";
-  $mysqli->query($query);
-  if ($mysqli->error){
-    throw new Exception($mysqli->error, $mysqli->errno);
-  }
 
   // Buat tabel "pembelian"
   $query = "CREATE TABLE pembelian (
@@ -109,29 +111,69 @@ try {
     echo "<li>Tabel 'pembelian' berhasil di buat</li>";
   };
 
-  // // Isi tabel "pembelian"
-  // $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
-  // $timestamp = $sekarang->format("Y-m-d H:i:s");
+  // Isi tabel "pembelian"
+  $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+  $timestamp = $sekarang->format("Y-m-d H:i:s");
 
-  // $query = "INSERT INTO pembelian
-  //   (tanggal_pembelian, jumlah, kode_barang) VALUES
-  //     ('$timestamp',5,'EL001'),
-  //     ('$timestamp',10,'EL002',),
-  //     ('$timestamp',10,'EL002',),
-  //     ('$timestamp',10,'EL002',),
-  //     ('$timestamp',10,'EL002',), 
-  //     ('$timestamp',7,'EL003'),
-  //     ('$timestamp',14,'EL004',),
-  //     ('$timestamp',25,'EL005',)
-  //   ;";
-  // $mysqli->query($query);
-  // if ($mysqli->error){
-  //   throw new Exception($mysqli->error, $mysqli->errno);
-  // }
-  // else {
-  //   echo "<li>Tabel 'stock' berhasil di isi ".$mysqli->affected_rows."
-  //        baris data</li>";
-  //       };
+  $query = "INSERT INTO pembelian
+    (tanggal_pembelian, jumlah, kode_barang) VALUES
+      ('$timestamp',5,'EL001'),
+      ('$timestamp',10,'EL002'),
+      ('$timestamp',10,'EL002'),
+      ('$timestamp',10,'EL002'),
+      ('$timestamp',10,'EL002'), 
+      ('$timestamp',7,'EL003'),
+      ('$timestamp',14,'EL004'),
+      ('$timestamp',25,'EL005')
+    ;";
+  $mysqli->query($query);
+  if ($mysqli->error){
+    throw new Exception($mysqli->error, $mysqli->errno);
+  }
+  else {
+echo "<li>Tabel 'stock' berhasil di isi ".$mysqli->affected_rows."
+    baris data</li>";
+  };
+
+
+  // Buat tabel "penjualan"
+  $query = "CREATE TABLE penjualan (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tanggal_penjualan TIMESTAMP,
+    jumlah INT,
+    kode_barang VARCHAR(5),
+    FOREIGN KEY (kode_barang) references barang (kode_barang)
+    )";
+$mysqli->query($query);
+if ($mysqli->error){
+throw new Exception($mysqli->error, $mysqli->errno);
+}
+else {
+echo "<li>Tabel 'penjualan' berhasil di buat</li>";
+};
+
+// Isi tabel "penjualan"
+$sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+$timestamp = $sekarang->format("Y-m-d H:i:s");
+
+$query = "INSERT INTO penjualan
+(tanggal_penjualan, jumlah, kode_barang) VALUES
+('$timestamp',3,'EL001'),
+('$timestamp',2,'EL002'),
+('$timestamp',2,'EL002'),
+('$timestamp',2,'EL002'), 
+('$timestamp',4,'EL003'),
+('$timestamp',2,'EL004'),
+('$timestamp',5,'EL005')
+;";
+$mysqli->query($query);
+if ($mysqli->error){
+throw new Exception($mysqli->error, $mysqli->errno);
+}
+else {
+echo "<li>Tabel 'penjualan' berhasil di isi ".$mysqli->affected_rows."
+baris data</li>";
+};
 
 
     

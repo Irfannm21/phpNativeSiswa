@@ -54,6 +54,11 @@ include 'template/header.php';
 
       <!-- Form untuk proses insert -->
       <form method="post">
+      <div class="form-group">
+          <label for="kode_barang">Kode Barang</label>
+          <input type="text" class="form-control" name="kode_barang"
+          value="<?php echo $barang->getItem('kode_barang'); ?>">
+        </div>
         <div class="form-group">
           <label for="nama_barang">Nama Barang</label>
           <input type="text" class="form-control" name="nama_barang"

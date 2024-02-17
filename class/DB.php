@@ -3,7 +3,7 @@ class DB{
 
   // Property untuk koneksi ke database mysql
   private $_host = '127.0.0.1';
-  private $_dbname = 'ilkoom';
+  private $_dbname = 'nativeStock';
   private $_username = 'root';
   private $_password = '';
 
@@ -66,6 +66,17 @@ class DB{
   public function get($tableName, $condition = "", $bindValue = []){
     $query = "SELECT {$this->_columnName} FROM {$tableName} {$condition} {$this->_orderBy}";
     $this->_columnName = "*";
+    $this->_orderBy = "";
+    return $this->getQuery($query, $bindValue);
+  }
+
+  public function rightJoin($left,$right, $bindValue =[]) {
+    $query = "SELECT {$this->_columnName} FROM {$left} RIGHT JOIN {$right} ON penjualan.kode_barang = barang.kode_barang";
+
+    // SELECT barang.kode_barang,barang.nama_barang,penjualan.jumlah,penjualan.tanggal_penjualan FROM barang RIGHT JOIN penjualan ON penjualan.kode_barang = barang.kode_barang
+
+
+    // $this->_columnName = "*";
     $this->_orderBy = "";
     return $this->getQuery($query, $bindValue);
   }

@@ -16,7 +16,7 @@ if (!empty($_GET)) {
 }
 else {
   // jika form tidak di submit, ambil semua isi tabel barang
-  $tabelBarang = $DB->get('barang');
+  $tabelBarang = $DB->select("barang.kode_barang,barang.nama_barang,penjualan.jumlah,penjualan.tanggal_penjualan")->rightJoin('barang','penjualan');
 }
 
 // include head
@@ -47,7 +47,7 @@ include 'template/header.php';
 
       <!-- Tabel barang -->
       <?php
-        if (!empty($tabelBarang)) :
+        // if (!empty($tabelBarang)) :
       ?>
         <table class="table table-striped">
         <thead>
@@ -55,8 +55,8 @@ include 'template/header.php';
             <th>ID</th>
             <th>Nama Barang</th>
             <th>Jumlah</th>
-            <th>Harga (Rp.)</th>
-            <th>Tanggal Update</th>
+            <!-- <th>Harga (Rp.)</th> -->
+            <th>Tanggal Terjual</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -66,10 +66,10 @@ include 'template/header.php';
             echo "<tr>";
             echo "<th>{$barang->kode_barang}</th>";
             echo "<td>{$barang->nama_barang}</td>";
-            echo "<td>{$barang->jumlah_barang}</td>";
-            echo "<td>".number_format($barang->harga_barang, 0, ',', '.').
+            echo "<td>{$barang->jumlah}</td>";
+            // echo "<td>".number_format($barang->harga_barang, 0, ',', '.').
             "</td>";
-            echo "<td>".date('d-m-Y H:i:s', strtotime($barang->tanggal)) ?? ''."</td>";
+            echo "<td>".date('d-m-Y H:i:s', strtotime($barang->tanggal_penjualan)) ?? ''."</td>";
             echo "<td>";
               echo "<a href=\"edit.php?kode_barang={$barang->kode_barang}\"
               class=\"btn btn-info\">Edit</a> ";
@@ -83,7 +83,7 @@ include 'template/header.php';
         </table>
 
       <?php
-        endif;
+        // endif;
       ?>
 
       </div>

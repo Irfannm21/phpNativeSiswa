@@ -27,7 +27,7 @@ include 'template/header.php';
   <div class="row">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 py-4">
     <h1 class="h2 mr-auto">
-      <a class="text-info" href="edit_barang.php">User Profile</a>
+      <a class="text-info" href="edit.php">User Profile</a>
     </h1>
 
     <?php

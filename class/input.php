@@ -14,7 +14,7 @@ class Input{
   public static function runSanitize($value,$sanitizeType){
     switch($sanitizeType) {
       case 'string':
-        $sanitizeValue = filter_var($value, FILTER_SANITIZE_STRING);
+        $sanitizeValue = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
       break;
       case 'int':
         $sanitizeValue = filter_var($value, FILTER_SANITIZE_NUMBER_INT);

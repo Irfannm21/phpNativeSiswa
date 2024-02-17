@@ -9,6 +9,12 @@ class Barang{
 
   public function validasi($formMethod){
     $validate = new Validate($formMethod);
+  
+    $this->_formItem['kode_barang'] = $validate->setRules('kode_barang',
+    'Kode Barang', [
+      // 'required' => true,
+      'sanitize' => 'string'
+    ]);
 
     $this->_formItem['nama_barang'] = $validate->setRules('nama_barang',
     'Nama barang', [
@@ -39,6 +45,7 @@ class Barang{
 
   public function insert(){
     $newBarang = [
+      'kode_barang' => $this->getItem('kode_barang'),
       'nama_barang' => $this->getItem('nama_barang'),
       'jumlah_barang' => $this->getItem('jumlah_barang'),
       'harga_barang' => $this->getItem('harga_barang'),
@@ -47,22 +54,22 @@ class Barang{
   }
 
   public function generate($id_barang){
-    $result = $this->_db->getWhereOnce('barang',['id_barang','=',$id_barang]);
+    $result = $this->_db->getWhereOnce('barang',['kode_barang','=',$id_barang]);
     foreach ($result as $key => $val) {
       $this->_formItem[$key] = $val;
     }
   }
 
-  public function update($id_barang){
+  public function update($kode_barang){
     $newBarang = [
       'nama_barang' => $this->getItem('nama_barang'),
       'jumlah_barang' => $this->getItem('jumlah_barang'),
       'harga_barang' => $this->getItem('harga_barang')
     ];
-    $this->_db->update('barang',$newBarang,['id_barang','=',$id_barang]);
+    $this->_db->update('barang',$newBarang,['kode_barang','=',$kode_barang]);
   }
 
   public function delete($id_barang){
-    $this->_db->delete('barang',['id_barang','=',$id_barang]);
+    $this->_db->delete('barang',['kode_barang','=',$id_barang]);
   }
 }

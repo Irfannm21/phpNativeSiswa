@@ -27,7 +27,12 @@
           <li class="nav-item">
             <a class="nav-link p-3 <?php echo basename($_SERVER['PHP_SELF']) 
             == "index.php" ? "active" : ""; ?>" href="index.php">
-            Tabel Barang</a>
+            Data Barang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-3 <?php echo basename($_SERVER['PHP_SELF']) 
+            == "index.php" ? "active" : ""; ?>" href="index_penjualan.php">
+            Data Penjualan</a>
           </li>
           <li class="nav-item">
             <a class="nav-link p-3 <?php echo basename($_SERVER['PHP_SELF']) 
